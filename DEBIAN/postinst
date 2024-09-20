@@ -1,0 +1,37 @@
+#!/bin/bash
+set -e
+
+# Enable and start the diskcleaner service
+SERVICE_FILE="/lib/systemd/system/diskcleaner.service"
+if [ -f "$SERVICE_FILE" ]; then
+    systemctl enable diskcleaner.service
+    systemctl start diskcleaner.service
+else
+    echo "diskcleaner.service file not found!"
+    exit 1
+fi
+
+# Set ownership and permissions for the cron file
+CRON_FILE="/etc/cron.d/diskcleaner"
+
+if [ -f "$CRON_FILE" ]; then
+    # Change ownership to root
+    chown root:root "$CRON_FILE"
+
+    # Ensure correct permissions
+    chmod 644 "$CRON_FILE"
+else
+    echo "$CRON_FILE not found!"
+    exit 1
+fi
+
+# Reload cron service to apply changes
+if systemctl restart cron; then
+    echo "Cron reloaded successfully."
+else
+    echo "Failed to reload cron."
+    exit 1
+fi
+
+# Exit with success
+exit 0

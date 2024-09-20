@@ -1,0 +1,11 @@
+Package: diskcleaner
+Version: 1.0.1
+Section: base
+Priority: optional
+Architecture: all
+Depends: bash
+Maintainer: Deepank Chauhan <deepank.c@greyorange.com>
+Description: A script to clean up old log and backup files
+ This package provides a script to clean up old log and backup files
+ in specified directories and sets up a cron job and systemd service
+ to run the script daily and on startup.

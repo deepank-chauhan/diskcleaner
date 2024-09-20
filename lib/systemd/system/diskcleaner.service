@@ -1,0 +1,10 @@
+[Unit]
+Description=Disk Cleaner Service
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/diskcleaner.sh
+
+[Install]
+WantedBy=multi-user.target
